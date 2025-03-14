@@ -1,14 +1,12 @@
-import {index, show} from '../controllers/movieController.js'
+import { index, show, destroy } from "../controllers/movieController.js";
 import express from "express";
 
 const router = express.Router();
 
+router.get("/", index);
 
-router.get('/', index);
+router.get("/:id", show);
 
-router.get('/:id', show);
-
-router.delete('/:id');
-
+router.delete("/:id", destroy);
 
 export default router;

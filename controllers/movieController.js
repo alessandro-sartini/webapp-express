@@ -9,7 +9,7 @@ function index(req, res) {
         err: 500,
         message: "Errore query index",
       });
-    }
+      };
 
     res.json(response);
   });
@@ -57,4 +57,30 @@ function show(req, res) {
   });
 }
 
-export { index, show };
+
+
+function destroy(req, res) {
+    
+    const { id } = req.params;
+
+    const sql = "SELECT * FROM movies WHERE id = ?"
+    
+    connection.query(sql, [id], (err) => {
+        
+        if (err) {
+            return res.staus(500)
+                .json({
+                    err: 500,
+                    response: "errore nel serve"
+                });
+            
+
+        };
+
+            res.setStatus(200);
+    });
+
+
+};
+
+export { index, show, destroy };
