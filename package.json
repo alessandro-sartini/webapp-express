@@ -1,0 +1,18 @@
+{
+  "name": "webapp-express",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Alessandro Sartini",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node start app.js",
+    "watch":"node --env-file=.env --watch app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^3.13.0"
+  }
+}
