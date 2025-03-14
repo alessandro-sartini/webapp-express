@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', index);
 
-router.get('/:id');
+router.get('/:id', show);
 
 router.delete('/:id');
 
