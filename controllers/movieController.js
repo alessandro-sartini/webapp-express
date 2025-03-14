@@ -14,7 +14,7 @@ function index(req, res) {
     const movies = response.map((movie) => {
       return {
         ...movie,
-        image: req.imagePath + `${movie.title.toLowerCase()}.jpg`,
+        image: req.imagePath + `${movie.image}`,
       };
     });
 
@@ -52,7 +52,7 @@ function show(req, res) {
       movie.reviews = resultWReview;
       res.json({
         ...movie,
-        image: req.imagePath + movie.title.toLowerCase() + ".jpg",
+        image: req.imagePath + movie.image,
       });
     });
   });
