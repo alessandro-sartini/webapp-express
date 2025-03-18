@@ -75,4 +75,32 @@ function destroy(req, res) {
   });
 }
 
-export { index, show, destroy };
+
+function storeReview(req, res) {
+  const { movie_id, name, vote, text } = req.body; 
+
+  // ci sono tutti?
+  if (!movie_id || !name || !vote || !text) { 
+    return res.status(400).json({
+      err: 400,
+      message: "Tutti i campi (movie_id, name, vote, text) sono obbligatori",
+    });
+  }
+
+  const sql = "INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)";
+
+  connection.query(sql, [movie_id, name, vote, text], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        err: 500,
+        message: "Errore durante l'inserimento della recensione",
+      });
+    }
+
+    res.status(201).json({
+      message: "Recensione aggiunta con successo",
+      // review_id: result.insertId,
+    });
+  });
+}
+export { index, show, destroy, storeReview };
