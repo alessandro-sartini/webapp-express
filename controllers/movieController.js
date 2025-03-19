@@ -75,19 +75,19 @@ function destroy(req, res) {
   });
 }
 
-
 function storeReview(req, res) {
-  const { movie_id, name, vote, text } = req.body; 
+  const { movie_id, name, vote, text } = req.body;
 
   // ci sono tutti?
-  if (!movie_id || !name || !vote || !text) { 
+  if (!movie_id || !name || !vote || !text) {
     return res.status(400).json({
       err: 400,
       message: "Tutti i campi (movie_id, name, vote, text) sono obbligatori",
     });
   }
 
-  const sql = "INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)";
+  const sql =
+    "INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)";
 
   connection.query(sql, [movie_id, name, vote, text], (err, result) => {
     if (err) {
@@ -99,8 +99,39 @@ function storeReview(req, res) {
 
     res.status(201).json({
       message: "Recensione aggiunta con successo",
-      // review_id: result.insertId,
+      review_id: result.insertId,
     });
   });
 }
-export { index, show, destroy, storeReview };
+
+function storeMovie(req, res) {
+  const { title, director, genre, release_year, abstract, image } = req.body;
+
+  const sql = `
+  INSERT INTO movies (title, director, genre, release_year, abstract, image) 
+  VALUES (?,?,?,?,?,?)`;
+  const releaseYearNumber = parseInt(release_year);
+
+  console.log("req.body:", req.body);
+  console.log("req.file:", req.file);
+  console.log("Valore di image:", image);
+  connection.query(
+    sql,
+    [title, director, genre, releaseYearNumber, abstract, image],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          err: 500,
+          message: `error in store`,
+        });
+      }
+      res.status(201).json({
+        status: "success",
+        message: "Film inserito con successo",
+        id: results.insertId,
+      });
+    }
+  );
+}
+
+export { index, show, destroy, storeReview, storeMovie };
