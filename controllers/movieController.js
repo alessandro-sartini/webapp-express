@@ -110,6 +110,8 @@ function storeMovie(req, res) {
   const sql = `
   INSERT INTO movies (title, director, genre, release_year, abstract, image) 
   VALUES (?,?,?,?,?,?)`;
+
+  const imageName = `${req.file.filename}`;
   const releaseYearNumber = parseInt(release_year);
 
   console.log("req.body:", req.body);
@@ -117,7 +119,7 @@ function storeMovie(req, res) {
   console.log("Valore di image:", image);
   connection.query(
     sql,
-    [title, director, genre, releaseYearNumber, abstract, image],
+    [title, director, genre, releaseYearNumber, abstract, imageName],
     (err, results) => {
       if (err) {
         return res.status(500).json({
