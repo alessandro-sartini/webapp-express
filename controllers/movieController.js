@@ -112,14 +112,14 @@ function storeMovie(req, res) {
   VALUES (?,?,?,?,?,?)`;
 
   const imageName = `${req.file.filename}`;
-  const releaseYearNumber = parseInt(release_year);
+  // const releaseYearNumber = parseInt(release_year);
 
   console.log("req.body:", req.body);
   console.log("req.file:", req.file);
   console.log("Valore di image:", image);
   connection.query(
     sql,
-    [title, director, genre, releaseYearNumber, abstract, imageName],
+    [title, director, genre, release_year, abstract, imageName],
     (err, results) => {
       if (err) {
         return res.status(500).json({
